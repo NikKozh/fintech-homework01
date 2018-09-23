@@ -41,7 +41,7 @@ class Hangman(io: IODevice) {
       io.printLine("Word: " + hiddenWord)
       io.printLine("Guess a letter:")
 
-      val userLetter = io.readLine().charAt(0)
+      val userLetter = getUserLetter()
       val foundIndices = word.zipWithIndex.filter(_._1 == userLetter).map(_._2)
 
       if (foundIndices.nonEmpty) {
@@ -75,6 +75,16 @@ class Hangman(io: IODevice) {
       io.printLine("You are dead")
       continue = false
     }
+  }
+
+  def getUserLetter(): Char = {
+    var userString = ""
+
+    do {
+      userString = io.readLine()
+    } while (userString.isEmpty)
+
+    userString.charAt(0)
   }
 
   val stages = List(
